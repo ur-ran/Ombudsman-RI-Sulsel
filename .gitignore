@@ -1,0 +1,97 @@
+# ============================================================
+# .gitignore — ORI (Ombudsman RI Sulsel) Project
+# ============================================================
+
+# -- DATABASE & CREDENTIALS ----------------------------------
+# Exclude semua file SQL dump mentah (berisi data sensitif)
+# KECUALI database.sql (sudah dibersihkan, aman untuk GitHub)
+*.sql
+!database.sql
+*.sql.gz
+*.sql.bak
+
+# Environment variables (berisi kredensial database)
+.env
+.env.local
+.env.production
+
+# -- DATA SENSITIF PESERTA MAGANG ----------------------------
+# Foto-foto kegiatan magang (132+ file JPG, ~250MB)
+magang/
+
+# -- FOLDER UPLOADS (file yang diupload user) ----------------
+# Berisi: foto peserta magang, laporan PDF resmi, foto berita
+uploads/
+
+# -- FILE DUMP & TEMPORARY -----------------------------------
+api/dump.txt
+dump_struktur.html
+struktur_dump.txt
+dump.php
+truncate.php
+reset_password.php
+check_links.php
+test_youtube.php
+api/test.php
+api/fix.php
+api/youtube_test.php
+
+# -- SCRIPT SEMENTARA (migration/utility) --------------------
+migrate_profil.php
+migrate_struktur.php
+fix_encoding.php
+fix_logo.php
+fix_logo2.php
+fix_responsive_profiles.php
+fix_sitemap.php
+fix_sitemap2.php
+fix_struktur.php
+add_favicon.php
+add_top_logo.php
+update_logo_style.php
+update_map.php
+update_nav.php
+update_podcast.php
+update_struktur.php
+update_struktur2.php
+update_struktur3.php
+update_struktur4.php
+update_struktur5.php
+move_layanan.php
+inject_dynamic.php
+inject_mobile_menu.php
+replace_logo.php
+replace_mori.php
+append_laporan.php
+update_lapor.php
+resize_logo.php
+build_pages.ps1
+replace.ps1
+
+# -- FILE ZIP / ARSIP ----------------------------------------
+*.zip
+*.rar
+*.7z
+*.tar
+*.tar.gz
+
+# -- FILE BESAR (YouTube dump) --------------------------------
+yt.html
+
+# -- SETUP SCRIPT --------------------------------------------
+setup.php
+setup_mori.php
+
+# -- OS & EDITOR FILES ---------------------------------------
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*.swo
+*~
+.idea/
+.vscode/settings.json
+
+# -- XAMPP / PHP LOG -----------------------------------------
+*.log
+php_error_log

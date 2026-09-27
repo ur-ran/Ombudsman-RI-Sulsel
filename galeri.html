@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Galeri Foto Kegiatan Magang Ombudsman RI Perwakilan Sulawesi Selatan" />
+  <title>Galeri Ombudsman Akademi — Ombudsman Perwakilan Sulawesi Selatan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    /* PAGE HERO */
+    .page-hero {
+      background: linear-gradient(135deg, #1A3A6B 0%, #0d2447 55%, #E8401C 100%);
+      padding: 100px 0 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 70% 50%, rgba(232,64,28,0.18) 0%, transparent 65%);
+    }
+    .page-hero h1 {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 800; color: #fff;
+      margin-bottom: 10px; position: relative;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; font-size: 13px; color: rgba(255,255,255,0.7); position: relative;
+    }
+    .breadcrumb a { color: rgba(255,255,255,0.85); text-decoration: none; transition: color 0.2s; }
+    .breadcrumb a:hover { color: #fff; }
+    .breadcrumb i { font-size: 9px; }
+    .page-hero-sub { color: rgba(255,255,255,0.7); font-size: 14px; margin-top: 8px; position: relative; }
+    .hero-total-pill {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px; padding: 5px 16px; font-size: 13px; font-weight: 600;
+      color: #fff; margin-top: 16px; position: relative;
+    }
+
+    /* GALERI SECTION */
+    .galeri-section { background: #f5f7fb; padding: 48px 0 72px; min-height: 60vh; }
+
+    /* TOOLBAR */
+    .galeri-toolbar {
+      display: flex; align-items: center; gap: 12px;
+      margin-bottom: 28px; flex-wrap: wrap;
+    }
+    .galeri-search { flex: 1; min-width: 200px; max-width: 380px; position: relative; }
+    .galeri-search input {
+      width: 100%; padding: 10px 16px 10px 40px; border: 1.5px solid #E2E8F0;
+      border-radius: 50px; font-size: 13px; font-family: 'Inter', sans-serif;
+      background: #fff; outline: none; transition: border-color 0.2s; box-sizing: border-box;
+    }
+    .galeri-search input:focus { border-color: #1A3A6B; }
+    .galeri-search i {
+      position: absolute; left: 14px; top: 50%;
+      transform: translateY(-50%); color: #9CA3AF; font-size: 13px;
+    }
+    .galeri-count { font-size: 13px; color: #9CA3AF; white-space: nowrap; }
+
+    /* MASONRY Pinterest */
+    .galeri-masonry {
+      column-count: 4;
+      column-gap: 14px;
+      column-fill: balance;
+    }
+    @media (max-width: 1100px) { .galeri-masonry { column-count: 3; } }
+    @media (max-width: 768px)  { .galeri-masonry { column-count: 2; } }
+    @media (max-width: 480px)  { .galeri-masonry { column-count: 1; } }
+
+    /* ITEM */
+    .galeri-item {
+      break-inside: avoid;
+      margin-bottom: 14px;
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: block;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.09);
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
+    }
+    .galeri-item:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 28px rgba(0,0,0,0.15);
+    }
+    .galeri-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+    .galeri-item:hover img { transform: scale(1.04); }
+
+    /* Overlay */
+    .galeri-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(transparent 55%, rgba(0,0,0,0.65));
+      opacity: 0; transition: opacity 0.3s;
+      display: flex; align-items: flex-end; padding: 14px;
+    }
+    .galeri-item:hover .galeri-overlay { opacity: 1; }
+    .galeri-caption-text { color: #fff; font-size: 12px; font-weight: 500; line-height: 1.4; }
+
+    /* Zoom icon */
+    .galeri-zoom-icon {
+      position: absolute; top: 10px; right: 10px;
+      background: rgba(0,0,0,0.35); backdrop-filter: blur(4px);
+      width: 32px; height: 32px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      color: #fff; font-size: 13px; opacity: 0; transition: opacity 0.3s;
+    }
+    .galeri-item:hover .galeri-zoom-icon { opacity: 1; }
+
+    /* SKELETON */
+    .galeri-skeleton {
+      column-count: 4;
+      column-gap: 14px;
+    }
+    @media (max-width: 1100px) { .galeri-skeleton { column-count: 3; } }
+    @media (max-width: 768px)  { .galeri-skeleton { column-count: 2; } }
+    .skel-item {
+      break-inside: avoid; margin-bottom: 14px; border-radius: 12px;
+      background: linear-gradient(90deg, #e5e7eb 25%, #f3f4f6 50%, #e5e7eb 75%);
+      background-size: 200% 100%; animation: shimmer 1.4s infinite;
+    }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+    /* EMPTY */
+    .galeri-empty { text-align: center; padding: 80px 20px; color: #9CA3AF; }
+    .galeri-empty i { font-size: 56px; display: block; margin-bottom: 16px; opacity: 0.3; }
+    .galeri-empty p { font-size: 15px; font-weight: 600; }
+    .galeri-empty span { font-size: 13px; display: block; margin-top: 6px; }
+
+    /* LIGHTBOX */
+    .lightbox {
+      display: none; position: fixed; inset: 0;
+      background: rgba(0,0,0,0.94); z-index: 9999;
+      align-items: center; justify-content: center; flex-direction: column;
+    }
+    .lightbox.open { display: flex; }
+    .lightbox-img-wrap { max-width: 92vw; max-height: 85vh; }
+    .lightbox-img-wrap img {
+      max-width: 92vw; max-height: 85vh; border-radius: 10px;
+      object-fit: contain; box-shadow: 0 20px 60px rgba(0,0,0,0.6); display: block;
+    }
+    .lightbox-caption { color: rgba(255,255,255,0.75); font-size: 14px; margin-top: 14px; text-align: center; max-width: 600px; }
+    .lightbox-counter { color: rgba(255,255,255,0.45); font-size: 12px; margin-top: 6px; }
+    .lightbox-close {
+      position: absolute; top: 20px; right: 24px;
+      background: rgba(255,255,255,0.1); border: none; color: #fff;
+      width: 44px; height: 44px; border-radius: 50%; font-size: 18px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-close:hover { background: rgba(232,64,28,0.7); }
+    .lightbox-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      background: rgba(255,255,255,0.1); border: none; color: #fff;
+      width: 50px; height: 50px; border-radius: 50%; font-size: 20px;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: background 0.2s;
+    }
+    .lightbox-nav:hover { background: rgba(255,255,255,0.22); }
+    .lightbox-prev { left: 20px; }
+    .lightbox-next { right: 20px; }
+
+    /* BACK */
+    .back-btn {
+      display: inline-flex; align-items: center; gap: 8px; margin-bottom: 24px;
+      font-size: 13px; font-weight: 600; color: #1A3A6B; text-decoration: none;
+      padding: 8px 18px; border-radius: 50px; background: rgba(26,58,107,0.08);
+      transition: all 0.2s;
+    }
+    .back-btn:hover { background: rgba(26,58,107,0.15); transform: translateX(-2px); }
+
+    /* SITEMAP */
+    .sitemap-section { background: #1A3A6B; padding: 40px 0; }
+    .sitemap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 24px; }
+    .sitemap-col h4 { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: rgba(255,255,255,0.5); margin-bottom: 14px; }
+    .sitemap-col ul { list-style: none; padding: 0; margin: 0; }
+    .sitemap-col ul li { margin-bottom: 8px; }
+    .sitemap-col ul li a { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 13px; font-weight: 500; transition: color 0.2s; display: flex; align-items: center; gap: 6px; }
+    .sitemap-col ul li a:hover { color: #fff; }
+    .sitemap-col ul li a i { font-size: 10px; color: #E8401C; }
+    /* RESPONSIVE EXTRAS */
+    @media (max-width: 768px) {
+      .galeri-hero { padding: 70px 0 40px !important; }
+      .galeri-hero img.hero-logo { height: 120px !important; margin: -25px auto 14px !important; }
+      .galeri-hero h1 { font-size: 22px !important; }
+      .galeri-hero p { font-size: 13px !important; }
+      .galeri-section { padding: 28px 0 48px; }
+      .galeri-total-badge { padding: 4px 12px; font-size: 12px; }
+      .lightbox-nav { width: 40px; height: 40px; font-size: 16px; }
+      .lightbox-prev { left: 10px; }
+      .lightbox-next { right: 10px; }
+    }
+    @media (max-width: 480px) {
+      .galeri-masonry { column-count: 1 !important; }
+      .galeri-skeleton { column-count: 1 !important; }
+      .lightbox-img-wrap { max-width: 96vw; }
+      .lightbox-nav { width: 34px; height: 34px; font-size: 14px; }
+      .back-btn { font-size: 12px; padding: 6px 14px; }
+    }
+  </style>
+  <link rel="icon" type="image/png" href="images/logotab.png" />
+</head>
+<body>
+
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+                <a href="index.html" style="display:flex; align-items:center;">
+          <img src="images/logofix.png" alt="Ombudsman Republik Indonesia" class="logo-nav" style="height:45px; width:auto; max-width:250px;">
+        </a>
+      </div>
+      <nav class="navbar-nav">
+        <a href="index.html" class="nav-link">PORTAL</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-toggle">TENTANG KAMI <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-dropdown-menu">
+            <a href="sekilas.html">Sekilas Ombudsman</a>
+            <a href="pimpinan.html">Profil Pimpinan</a>
+            <a href="visi-misi.html">Visi dan Misi</a>
+            <a href="tugas-fungsi.html">Tugas &amp; Fungsi</a>
+            <a href="maklumat.html">Maklumat Pelayanan</a>
+            <a href="struktur.html">Struktur Organisasi</a>
+            <a href="spip.html">SPIP</a>
+            <a href="elhkpn.html">e-LHKPN</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-toggle">PUBLIKASI <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-dropdown-menu">
+            <a href="laporan-tahunan.html">Laporan Tahunan</a>
+            <a href="podcast.html">Podcast & Ruang Bincang</a>
+          </div>
+        </div>
+        <a href="berita.html" class="nav-link">BERITA</a>
+        <a href="regulasi.html" class="nav-link">REGULASI</a>
+        <a href="mori.html" class="nav-link active">Ombudsman Akademi</a>
+      </nav>
+      <div class="navbar-cta">
+        <a href="https://simpel4.ombudsman.go.id/lapor-ombudsman" target="_blank" rel="noopener" class="btn-lapor">LAPOR!</a>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <div class="page-hero">
+    <div class="container">
+        <img src="images/logovertikal.png" alt="Ombudsman RI" style="height: 250px; width: auto; margin: -50px auto 20px; display: block;">
+    <h1>GALERI FOTO OMBUDSMAN AKADEMI</h1>
+    <p class="page-hero-sub">Dokumentasi kegiatan peserta magang Ombudsman RI Perwakilan Sulawesi Selatan</p>
+    <div class="breadcrumb" style="margin-top:12px;">
+      <a href="index.html">Beranda</a>
+      <i class="fas fa-chevron-right"></i>
+      <a href="mori.html">Ombudsman Akademi</a>
+      <i class="fas fa-chevron-right"></i>
+      <span>Galeri Foto</span>
+    </div>
+    <div class="hero-total-pill" id="heroTotalPill" style="display:none;">
+      <i class="fas fa-images"></i>
+      <span id="heroTotalText">0 foto</span>
+    </div>
+  </div>
+
+  <!-- GALERI SECTION -->
+  <section class="galeri-section">
+    <div class="container">
+
+      <a href="mori.html#galeri" class="back-btn">
+        <i class="fas fa-arrow-left"></i> Kembali ke Ombudsman Akademi
+      </a>
+
+      <!-- Toolbar: search + count saja -->
+      <div class="galeri-toolbar">
+        <div class="galeri-search">
+          <i class="fas fa-search"></i>
+          <input type="text" id="galeriSearch" placeholder="Cari foto berdasarkan keterangan..." oninput="filterGaleri()" />
+        </div>
+        <span class="galeri-count" id="galeriCount"></span>
+      </div>
+
+      <!-- Skeleton -->
+      <div class="galeri-skeleton" id="galeriSkeleton">
+        <div class="skel-item" style="height:210px;"></div>
+        <div class="skel-item" style="height:165px;"></div>
+        <div class="skel-item" style="height:245px;"></div>
+        <div class="skel-item" style="height:185px;"></div>
+        <div class="skel-item" style="height:220px;"></div>
+        <div class="skel-item" style="height:170px;"></div>
+        <div class="skel-item" style="height:255px;"></div>
+        <div class="skel-item" style="height:195px;"></div>
+        <div class="skel-item" style="height:180px;"></div>
+        <div class="skel-item" style="height:235px;"></div>
+        <div class="skel-item" style="height:155px;"></div>
+        <div class="skel-item" style="height:215px;"></div>
+      </div>
+
+      <!-- Galeri Masonry -->
+      <div class="galeri-masonry" id="galeriContainer" style="display:none;"></div>
+
+      <!-- Empty State -->
+      <div class="galeri-empty" id="galeriEmpty" style="display:none;">
+        <i class="fas fa-camera"></i>
+        <p>Belum ada foto di galeri</p>
+        <span>Taruh foto di folder <code>/magang/</code> dan foto akan otomatis tampil di sini.</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- LIGHTBOX -->
+  <div class="lightbox" id="lightbox" onclick="closeLightboxOutside(event)">
+    <button class="lightbox-close" onclick="closeLightbox()"><i class="fas fa-times"></i></button>
+    <button class="lightbox-nav lightbox-prev" onclick="navLightbox(-1)"><i class="fas fa-chevron-left"></i></button>
+    <div class="lightbox-img-wrap">
+      <img id="lightboxImg" src="" alt="" />
+    </div>
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+    <div class="lightbox-counter" id="lightboxCounter"></div>
+    <button class="lightbox-nav lightbox-next" onclick="navLightbox(1)"><i class="fas fa-chevron-right"></i></button>
+  </div>
+
+  <!-- SITEMAP -->
+  <nav class="sitemap-section">
+    <div class="container">
+      <div class="sitemap-grid">
+        <div class="sitemap-col">
+          <h4>Menu Utama</h4>
+          <ul>
+            <li><a href="index.html"><i class="fas fa-chevron-right"></i> Portal</a></li>
+            <li><a href="berita.html"><i class="fas fa-chevron-right"></i> Berita & Kegiatan</a></li>
+            <li><a href="mori.html"><i class="fas fa-chevron-right"></i> MORI</a></li>
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h4>Publikasi</h4>
+          <ul>
+            <li><a href="laporan-tahunan.html"><i class="fas fa-chevron-right"></i> Laporan Tahunan</a></li>
+            <li><a href="podcast.html"><i class="fas fa-chevron-right"></i> Siaran Pers</a></li>
+            <li><a href="podcast.html"><i class="fas fa-chevron-right"></i> Podcast &amp; Video</a></li>
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h4>Regulasi</h4>
+          <ul>
+            <li><a href="regulasi.html"><i class="fas fa-chevron-right"></i> Undang-Undang</a></li>
+            <li><a href="regulasi.html"><i class="fas fa-chevron-right"></i> Peraturan Ombudsman</a></li>
+            <li><a href="regulasi.html"><i class="fas fa-chevron-right"></i> Peraturan Pemerintah</a></li>
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h4>Layanan</h4>
+          <ul>
+            <li><a href="tel:+6208112363737"><i class="fas fa-phone"></i> 0811-2363-737</a></li>
+            <li><a href="https://www.instagram.com/ombudsman137sulsel" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+            <li><a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank"><i class="fab fa-youtube"></i> YouTube</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-alamat">
+          <h4 class="footer-heading">Alamat Kantor</h4>
+          <div class="footer-map-wrap">
+            <a href="https://maps.app.goo.gl/vLokBJSkznrzQx2m9" target="_blank" rel="noopener">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.551608620864!2d119.4398188!3d-5.1755716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee2b74070a7b5%3A0xc3910c224a1e9411!2sOmbudsman%20RI%20Perwakilan%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1720000000000!5m2!1sid!2sid"
+                width="100%" height="90" style="border:0; border-radius: 8px; pointer-events:none;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </a>
+          </div>
+          <p class="footer-address">
+            <i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i>
+            Jl. Letnan Hertasning No.8, Kassi-Kassi, Kec. Rappocini,<br>
+            Kota Makassar, Sulawesi Selatan 90221
+          </p>
+        </div>
+        <div class="footer-col footer-kontak">
+          <h4 class="footer-heading">Kontak</h4>
+          <ul class="footer-contact-list">
+            <li><i class="fas fa-phone"></i><a href="tel:+6208112363737">0811-2363-737</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:perwakilan.sulsel@ombudsman.go.id">perwakilan.sulsel@ombudsman.go.id</a></li>
+            <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/ombudsman137sulsel" target="_blank" rel="noopener">@ombudsman137sulsel</a></li>
+            <li><i class="fab fa-youtube"></i><a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank" rel="noopener">Ombudsman RI Sulsel</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Ombudsman RI Perwakilan Sulawesi Selatan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const API_BASE = 'api';
+
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function () {
+      navbar.style.boxShadow = window.scrollY > 20
+        ? '0 4px 20px rgba(0,0,0,0.12)'
+        : '0 1px 3px rgba(0,0,0,0.08)';
+    });
+    window.toggleMobileMenu = function () {
+      const nav = document.querySelector('.navbar-nav');
+      if (nav) nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    };
+
+    let allGaleri      = [];
+    let filteredGaleri = [];
+    let lightboxIdx    = 0;
+
+    // LOAD DATA
+    async function loadGaleri() {
+      try {
+        const res  = await fetch(API_BASE + '/magang.php?type=galeri');
+        const data = await res.json();
+        if (data.success) {
+          allGaleri      = data.data;
+          filteredGaleri = allGaleri.slice();
+          renderStats();
+          renderGaleri();
+        } else {
+          showEmpty();
+        }
+      } catch (e) {
+        showEmpty();
+      }
+    }
+
+    function renderStats() {
+      const total = allGaleri.length;
+      document.getElementById('galeriCount').textContent = total + ' foto';
+      var pill = document.getElementById('heroTotalPill');
+      var txt  = document.getElementById('heroTotalText');
+      if (total > 0) {
+        pill.style.display = 'inline-flex';
+        txt.textContent    = total + ' foto tersedia';
+      }
+    }
+
+    function renderGaleri() {
+      var skeleton  = document.getElementById('galeriSkeleton');
+      var container = document.getElementById('galeriContainer');
+      var empty     = document.getElementById('galeriEmpty');
+
+      skeleton.style.display = 'none';
+
+      if (!filteredGaleri.length) {
+        container.style.display = 'none';
+        empty.style.display = 'block';
+        return;
+      }
+
+      empty.style.display = 'none';
+      container.style.display = 'block';
+
+      container.innerHTML = filteredGaleri.map(function(g, i) {
+        return '<div class="galeri-item" onclick="openLightbox(' + i + ')" tabindex="0" role="button" aria-label="Foto ' + (i + 1) + '">' +
+          '<img src="' + esc(g.path) + '" alt="' + esc(g.caption || 'Foto kegiatan magang') + '" loading="lazy" ' +
+          'onerror="this.closest(\'.galeri-item\').style.display=\'none\'" />' +
+          '<div class="galeri-overlay">' +
+            (g.caption ? '<span class="galeri-caption-text">' + esc(g.caption) + '</span>' : '') +
+          '</div>' +
+          '<div class="galeri-zoom-icon"><i class="fas fa-expand-alt"></i></div>' +
+        '</div>';
+      }).join('');
+    }
+
+    function showEmpty() {
+      document.getElementById('galeriSkeleton').style.display = 'none';
+      document.getElementById('galeriEmpty').style.display = 'block';
+    }
+
+    // FILTER / SEARCH
+    function filterGaleri() {
+      var q = (document.getElementById('galeriSearch').value || '').toLowerCase().trim();
+      filteredGaleri = q
+        ? allGaleri.filter(function(g) {
+            return (g.caption || '').toLowerCase().includes(q) || g.path.toLowerCase().includes(q);
+          })
+        : allGaleri.slice();
+      document.getElementById('galeriCount').textContent = filteredGaleri.length + ' foto';
+      renderGaleri();
+    }
+
+    // LIGHTBOX
+    function openLightbox(idx) {
+      lightboxIdx = idx;
+      updateLightbox();
+      document.getElementById('lightbox').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeLightbox() {
+      document.getElementById('lightbox').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+    function closeLightboxOutside(e) { if (e.target.id === 'lightbox') closeLightbox(); }
+    function navLightbox(dir) {
+      lightboxIdx = (lightboxIdx + dir + filteredGaleri.length) % filteredGaleri.length;
+      updateLightbox();
+    }
+    function updateLightbox() {
+      var g = filteredGaleri[lightboxIdx];
+      if (!g) return;
+      var img = document.getElementById('lightboxImg');
+      img.src = g.path;
+      img.alt = g.caption || 'Foto kegiatan magang';
+      document.getElementById('lightboxCaption').textContent = g.caption || '';
+      document.getElementById('lightboxCounter').textContent = (lightboxIdx + 1) + ' / ' + filteredGaleri.length;
+    }
+    document.addEventListener('keydown', function(e) {
+      if (!document.getElementById('lightbox').classList.contains('open')) return;
+      if (e.key === 'ArrowLeft')  navLightbox(-1);
+      if (e.key === 'ArrowRight') navLightbox(1);
+      if (e.key === 'Escape')     closeLightbox();
+    });
+
+    function esc(s) {
+      return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+    }
+
+    loadGaleri();
+  </script>
+    
+  <!-- Mobile Menu Script (injected for pages without app.js) -->
+  <script>
+    // Define functions immediately in global scope
+    window.closeMobileMenu = function() {
+      var nav = document.querySelector('.navbar-nav');
+      var ham = document.getElementById('hamburger');
+      var ovl = document.getElementById('mobileMenuOverlay');
+      if (nav) nav.classList.remove('mobile-open');
+      if (ovl) ovl.classList.remove('active');
+      document.body.style.overflow = '';
+      if (ham) {
+        ham.querySelectorAll('span').forEach(function(s) { s.style.transform = ''; s.style.opacity = ''; });
+      }
+      document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+    };
+
+    window.toggleMobileMenu = function() {
+      var nav = document.querySelector('.navbar-nav');
+      var ham = document.getElementById('hamburger');
+      var ovl = document.getElementById('mobileMenuOverlay');
+      if (!nav) return;
+      if (nav.classList.contains('mobile-open')) {
+        window.closeMobileMenu();
+      } else {
+        nav.classList.add('mobile-open');
+        if (ovl) ovl.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        if (ham) {
+          ham.querySelector('span:nth-child(1)').style.transform = 'rotate(45deg) translate(5px, 5px)';
+          ham.querySelector('span:nth-child(2)').style.opacity = '0';
+          ham.querySelector('span:nth-child(3)').style.transform = 'rotate(-45deg) translate(5px, -5px)';
+        }
+      }
+    };
+
+    (function() {
+      function initMobileMenu() {
+        // Inject overlay
+        if (!document.getElementById('mobileMenuOverlay')) {
+          var overlay = document.createElement('div');
+          overlay.className = 'mobile-menu-overlay';
+          overlay.id = 'mobileMenuOverlay';
+          overlay.addEventListener('click', window.closeMobileMenu);
+          document.body.appendChild(overlay);
+        }
+
+        // Dropdown accordion in mobile menu
+        document.querySelectorAll('.nav-dropdown .dropdown-toggle').forEach(function(toggle) {
+          toggle.addEventListener('click', function(e) {
+            var nav = document.querySelector('.navbar-nav');
+            if (nav && nav.classList.contains('mobile-open')) {
+              e.preventDefault();
+              var dropdown = toggle.closest('.nav-dropdown');
+              var wasOpen = dropdown.classList.contains('open');
+              document.querySelectorAll('.nav-dropdown').forEach(function(d) { d.classList.remove('open'); });
+              if (!wasOpen) dropdown.classList.add('open');
+            }
+          });
+        });
+
+        // Navbar scroll shadow
+        var navbar = document.getElementById('navbar');
+        if (navbar) {
+          window.addEventListener('scroll', function() {
+            navbar.style.boxShadow = window.scrollY > 20 ? '0 4px 20px rgba(0,0,0,0.12)' : '0 1px 3px rgba(0,0,0,0.08)';
+          });
+        }
+      }
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', initMobileMenu);
+      } else {
+        initMobileMenu();
+      }
+    })();
+  </script>
+</body>
+</html>

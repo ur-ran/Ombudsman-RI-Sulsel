@@ -1,0 +1,803 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Panel — Ombudsman Sulsel</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="admin.css" />
+  <link rel="icon" type="image/png" href="images/logotab.png" />
+</head>
+
+<body>
+
+  <!-- ===== LOGIN SCREEN ===== -->
+  <div class="login-overlay" id="loginOverlay">
+    <div class="login-card">
+      <div class="login-logo">
+        <img src="images/logofix.png" alt="Ombudsman Logo" style="height: 48px; width: auto;" />
+
+      </div>
+      <h2 class="login-title">Super Admin Panel</h2>
+      <p class="login-desc">Masuk untuk mengelola konten website</p>
+
+      <div class="login-form" id="loginForm">
+        <div class="form-group">
+          <label class="form-label" for="loginUsername">
+            <i class="fas fa-user"></i> Username
+          </label>
+          <input type="text" id="loginUsername" class="form-input" placeholder="Masukkan username" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="loginPassword">
+            <i class="fas fa-lock"></i> Password
+          </label>
+          <div class="password-wrap">
+            <input type="password" id="loginPassword" class="form-input" placeholder="Masukkan password" />
+            <button type="button" class="btn-eye" id="btnEye" onclick="togglePassword()">
+              <i class="fas fa-eye" id="eyeIcon"></i>
+            </button>
+          </div>
+        </div>
+        <div class="login-error" id="loginError"></div>
+        <button class="btn-login" id="btnLogin" onclick="doLogin()">
+          <i class="fas fa-sign-in-alt"></i> Masuk
+        </button>
+      </div>
+
+
+    </div>
+  </div>
+
+  <!-- ===== ADMIN LAYOUT ===== -->
+  <div class="admin-layout" id="adminLayout" style="display:none;">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="sidebar-logo">
+          <img src="images/logofix.png" alt="Logo" style="height: 32px; width: auto;">
+          <div class="sidebar-logo-text">
+            <span class="sidebar-logo-main">Admin Panel</span>
+            <span class="sidebar-logo-sub">ORI Sulsel</span>
+          </div>
+        </div>
+        <button class="btn-sidebar-toggle" id="btnSidebarToggle" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-nav-label">MENU UTAMA</div>
+        <a href="#" class="sidebar-link active" id="navBerita" onclick="showSection('berita', this)">
+          <i class="fas fa-newspaper"></i>
+          <span>Manajemen Berita</span>
+        </a>
+        <a href="#" class="sidebar-link" id="navDashboard" onclick="showSection('dashboard', this)">
+          <i class="fas fa-chart-bar"></i>
+          <span>Dashboard Stats</span>
+        </a>
+        <a href="#" class="sidebar-link" id="navPodcast" onclick="showSection('podcast', this)">
+          <i class="fas fa-podcast"></i>
+          <span>Podcast / YouTube</span>
+        </a>
+        <a href="#" class="sidebar-link" id="navProfil" onclick="showSection('profil', this)">
+          <i class="fas fa-address-card"></i>
+          <span>Profil / Tentang Kami</span>
+        </a>
+        <a href="#" class="sidebar-link" id="navLaporan" onclick="showSection('laporan', this)">
+          <i class="fas fa-file-alt"></i>
+          <span>Laporan Tahunan</span>
+        </a>
+        <div class="sidebar-nav-label" style="margin-top:16px;">OMBUDSMAN AKADEMI</div>
+        <a href="#" class="sidebar-link" id="navMagang" onclick="showSection('magang', this)">
+          <i class="fas fa-user-graduate"></i>
+          <span>Data Peserta Magang</span>
+        </a>
+        <a href="#" class="sidebar-link" id="navProject" onclick="showSection('project', this)">
+          <i class="fas fa-clipboard-list"></i>
+          <span>Kegiatan Anak Magang</span>
+        </a>
+        <a href="#" class="sidebar-link" id="navGaleri" onclick="showSection('galeri', this)">
+          <i class="fas fa-images"></i>
+          <span>Galeri Magang</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <a href="index.html" class="sidebar-link-footer" target="_blank">
+          <i class="fas fa-globe"></i>
+          <span>Lihat Website</span>
+        </a>
+        <button class="sidebar-link-footer btn-logout" onclick="doLogout()">
+          <i class="fas fa-sign-out-alt"></i>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main class="admin-main" id="adminMain">
+
+      <!-- TOP BAR -->
+      <header class="admin-topbar">
+        <button class="btn-mobile-menu" onclick="toggleMobileSidebar()">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="topbar-title" id="topbarTitle">Manajemen Berita</div>
+        <div class="topbar-right">
+          <div class="topbar-user">
+            <div class="topbar-avatar">A</div>
+            <span>Super Admin</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- ===== SECTION: BERITA ===== -->
+      <section class="admin-section active" id="sectionBerita">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Manajemen Berita</h1>
+            <p class="section-desc">Kelola berita & kegiatan terkini yang tampil di halaman utama</p>
+          </div>
+          <button class="btn-primary" id="btnTambahBerita" onclick="openModalTambah()">
+            <i class="fas fa-plus"></i> Tambah Berita
+          </button>
+        </div>
+
+        <!-- Stats Mini -->
+        <div class="stats-mini-row" id="statsMiniRow">
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon orange"><i class="fas fa-newspaper"></i></div>
+            <div>
+              <div class="stat-mini-val" id="statTotal">0</div>
+              <div class="stat-mini-label">Total Berita</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon green"><i class="fas fa-check-circle"></i></div>
+            <div>
+              <div class="stat-mini-val" id="statPublished">0</div>
+              <div class="stat-mini-label">Dipublikasikan</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon blue"><i class="fas fa-edit"></i></div>
+            <div>
+              <div class="stat-mini-val" id="statDraft">0</div>
+              <div class="stat-mini-label">Draft</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search & Filter -->
+        <div class="table-toolbar">
+          <div class="search-box">
+            <i class="fas fa-search"></i>
+            <input type="text" id="searchBerita" placeholder="Cari berita..." oninput="filterBerita()" />
+          </div>
+          <select class="select-filter" id="filterStatus" onchange="filterBerita()">
+            <option value="">Semua Status</option>
+            <option value="published">Dipublikasikan</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-card">
+          <table class="admin-table" id="tabelBerita">
+            <thead>
+              <tr>
+                <th style="width:50px;">#</th>
+                <th>Judul Berita</th>
+                <th style="width:120px;">Kategori</th>
+                <th style="width:110px;">Tanggal</th>
+                <th style="width:100px;">Status</th>
+                <th style="width:120px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyBerita">
+            </tbody>
+          </table>
+          <div class="table-empty" id="tableEmpty" style="display:none;">
+            <i class="fas fa-inbox"></i>
+            <p>Belum ada berita. Klik "Tambah Berita" untuk mulai.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION: DASHBOARD STATS ===== -->
+      <section class="admin-section" id="sectionDashboard">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Dashboard Stats</h1>
+            <p class="section-desc">Kelola data statistik kinerja perwakilan Sulsel</p>
+          </div>
+          <button class="btn-primary" onclick="saveDashboardStats()">
+            <i class="fas fa-save"></i> Simpan Perubahan
+          </button>
+        </div>
+
+        <div class="dashboard-form-grid">
+          <div class="form-card">
+            <div class="form-card-icon orange"><i class="fas fa-file-alt"></i></div>
+            <div class="form-card-body">
+              <label class="form-label">Aduan Laporan Masyarakat</label>
+              <input type="number" class="form-input" id="statAduan" placeholder="Contoh: 142" />
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-icon blue"><i class="fas fa-chart-line"></i></div>
+            <div class="form-card-body">
+              <label class="form-label">Capaian Kinerja</label>
+              <input type="text" class="form-input" id="statCapaian" placeholder="Contoh: 87,5%" />
+            </div>
+          </div>
+          <div class="form-card">
+            <div class="form-card-icon green"><i class="fas fa-clipboard-list"></i></div>
+            <div class="form-card-body">
+              <label class="form-label">Substansi Laporan</label>
+              <input type="number" class="form-input" id="statSubstansi" placeholder="Contoh: 38" />
+            </div>
+          </div>
+          <div class="form-card full-width">
+            <div class="form-card-icon" style="background:rgba(123,104,238,0.15);">
+              <i class="fas fa-percentage" style="color:#7B68EE;"></i>
+            </div>
+            <div class="form-card-body">
+              <label class="form-label">Realisasi Target 2025 (%)</label>
+              <input type="number" step="0.01" min="0" max="100" class="form-input" id="statTarget"
+                placeholder="Contoh: 54.33" oninput="updateTargetPreview()" />
+              <div class="progress-preview">
+                <div class="progress-preview-bar">
+                  <div class="progress-preview-fill" id="previewFill" style="width: 54.33%">
+                    <span id="previewText">54,33 %</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="save-toast" id="saveToast">
+          <i class="fas fa-check-circle"></i> Data berhasil disimpan!
+        </div>
+      </section>
+
+      <!-- ===== SECTION: PODCAST ===== -->
+      <section class="admin-section" id="sectionPodcast">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Podcast / YouTube</h1>
+            <p class="section-desc">Video terbaru dari channel YouTube Ombudsman RI Sulsel</p>
+          </div>
+          <a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank" class="btn-primary">
+            <i class="fab fa-youtube"></i> Buka Channel YouTube
+          </a>
+        </div>
+        <div class="podcast-info-card">
+          <div class="podcast-info-icon"><i class="fab fa-youtube"></i></div>
+          <div>
+            <div class="podcast-info-title">Ombudsman RI Sulsel</div>
+            <div class="podcast-info-sub">
+              Handle: <a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank">@ombudsmanrisulsel</a>
+            </div>
+            <div class="podcast-info-note">
+              <i class="fas fa-info-circle"></i>
+              Bagian Podcast di halaman utama otomatis menampilkan video terbaru dari channel ini.
+              Semua kartu podcast akan mengarah ke channel YouTube saat diklik.
+            </div>
+          </div>
+        </div>
+        <div class="podcast-preview-grid" id="podcastPreviewGrid">
+          <div class="loading-podcast">
+            <i class="fas fa-spinner fa-spin"></i> Memuat video terbaru...
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION: PROFIL ===== -->
+      <section class="admin-section" id="sectionProfil">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Profil / Tentang Kami</h1>
+            <p class="section-desc">Kelola konten halaman profil seperti Visi Misi, Pimpinan, Struktur, dll.</p>
+          </div>
+          <button class="btn-primary" onclick="saveProfilPage()">
+            <i class="fas fa-save"></i> Simpan Perubahan
+          </button>
+        </div>
+        <div class="form-card full-width">
+          <div class="form-card-body" style="padding: 20px;">
+            <label class="form-label">Pilih Halaman untuk Diedit:</label>
+            <select class="form-input" id="profilPageSelect" onchange="loadProfilPage()" style="margin-bottom: 20px; font-weight: 600;">
+              <option value="">-- Pilih Halaman --</option>
+            </select>
+            <label class="form-label">Judul Halaman:</label>
+            <input type="text" id="profilTitle" class="form-input" style="margin-bottom: 15px;">
+            <label class="form-label">Sub Judul:</label>
+            <input type="text" id="profilSubtitle" class="form-input" style="margin-bottom: 20px;">
+            <label class="form-label">Konten Halaman (HTML):</label>
+            <textarea id="profilEditor" class="form-textarea" rows="20" style="font-family: monospace; font-size: 13px; line-height: 1.5; padding: 15px;" placeholder="Kode HTML konten..."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION: LAPORAN TAHUNAN ===== -->
+      <section class="admin-section" id="sectionLaporan">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Laporan Tahunan</h1>
+            <p class="section-desc">Kelola dokumen laporan tahunan Ombudsman RI Perwakilan Sulsel.</p>
+          </div>
+          <button class="btn-primary" onclick="showLaporanForm()"><i class="fas fa-plus"></i> Tambah Laporan</button>
+        </div>
+
+        <!-- FORM ADD/EDIT -->
+        <div class="form-card full-width" id="laporanFormCard" style="display:none; margin-bottom:24px;">
+          <div class="form-card-header"><h3 id="laporanFormTitle">Tambah Laporan Tahunan</h3></div>
+          <div class="form-card-body" style="padding:20px;">
+            <input type="hidden" id="laporanEditId">
+            <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px;">
+              <div>
+                <label class="form-label">Tahun:</label>
+                <input type="text" id="laporanTahun" class="form-input" placeholder="Contoh: 2024">
+              </div>
+              <div>
+                <label class="form-label">Judul Laporan:</label>
+                <input type="text" id="laporanJudul" class="form-input" placeholder="Judul laporan...">
+              </div>
+            </div>
+            <label class="form-label">Deskripsi Singkat:</label>
+            <textarea id="laporanDeskripsi" class="form-textarea" rows="3" style="margin-bottom:16px;" placeholder="Deskripsi laporan..."></textarea>
+            <label class="form-label">Upload File PDF Laporan:</label>
+            <input type="file" id="laporanPdfFile" class="form-input" accept="application/pdf" style="margin-bottom: 8px;">
+            <p style="font-size:12px; color:#64748b; margin-bottom:16px;">Atau gunakan URL jika file ada di tempat lain:</p>
+            <input type="text" id="laporanFileUrl" class="form-input" style="margin-bottom:16px;" placeholder="URL file PDF...">
+            <label class="form-label">URL Cover/Gambar (opsional):</label>
+            <input type="text" id="laporanCoverUrl" class="form-input" style="margin-bottom:20px;" placeholder="https://...">
+            <div style="display:flex; gap:10px;">
+              <button class="btn-primary" onclick="saveLaporan()"><i class="fas fa-save"></i> Simpan</button>
+              <button class="btn-secondary" onclick="hideLaporanForm()"><i class="fas fa-times"></i> Batal</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- TABLE -->
+        <div class="form-card full-width">
+          <div class="form-card-body" style="padding:0;">
+            <table class="data-table" style="width:100%;">
+              <thead>
+                <tr>
+                  <th>Tahun</th>
+                  <th>Judul</th>
+                  <th>Deskripsi</th>
+                  <th>File PDF</th>
+                  <th>Aksi</th>
+                </tr>
+              </thead>
+              <tbody id="laporanTableBody">
+                <tr><td colspan="5" style="text-align:center; padding:30px; color:#94a3b8;"><i class="fas fa-spinner fa-spin"></i> Memuat...</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===== SECTION: DATA PESERTA MAGANG ===== -->
+      <section class="admin-section" id="sectionMagang">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Data Peserta Magang</h1>
+            <p class="section-desc">Kelola data mahasiswa yang magang di Ombudsman RI Perwakilan Sulsel</p>
+          </div>
+          <button class="btn-primary" onclick="openModalMagang()">
+            <i class="fas fa-plus"></i> Tambah Peserta
+          </button>
+        </div>
+
+        <!-- Stats Mini Magang -->
+        <div class="stats-mini-row">
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon green"><i class="fas fa-user-check"></i></div>
+            <div>
+              <div class="stat-mini-val" id="mStatAktif">0</div>
+              <div class="stat-mini-label">Sedang Magang</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon blue"><i class="fas fa-user-graduate"></i></div>
+            <div>
+              <div class="stat-mini-val" id="mStatAlumni">0</div>
+              <div class="stat-mini-label">Alumni</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon" style="background:rgba(245,158,11,0.12);"><i class="fas fa-id-card" style="color:#d97706;"></i></div>
+            <div>
+              <div class="stat-mini-val" id="mStatHonor">0</div>
+              <div class="stat-mini-label">Honor</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon" style="background:rgba(20,184,166,0.12);"><i class="fas fa-briefcase" style="color:#0d9488;"></i></div>
+            <div>
+              <div class="stat-mini-val" id="mStatKemenaker">0</div>
+              <div class="stat-mini-label">Kemenaker</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon" style="background:rgba(139,92,246,0.12);"><i class="fas fa-hourglass-half" style="color:#8b5cf6;"></i></div>
+            <div>
+              <div class="stat-mini-val" id="mStatAntrian">0</div>
+              <div class="stat-mini-label">Antrian</div>
+            </div>
+          </div>
+          <div class="stat-mini-card">
+            <div class="stat-mini-icon orange"><i class="fas fa-users"></i></div>
+            <div>
+              <div class="stat-mini-val" id="mStatTotal">0</div>
+              <div class="stat-mini-label">Total Peserta</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Table Peserta -->
+        <div class="table-card">
+          <table class="admin-table" id="tabelMagang">
+            <thead>
+              <tr>
+                <th style="width:44px;">#</th>
+                <th>Nama Peserta</th>
+                <th>Jurusan</th>
+                <th>Kampus</th>
+                <th>Periode Magang</th>
+                <th style="width:100px;">Kategori</th>
+                <th style="width:90px;">Status</th>
+                <th style="width:120px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyMagang">
+              <tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text-light);"><i class="fas fa-spinner fa-spin"></i> Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== SECTION: KEGIATAN ANAK MAGANG ===== -->
+      <section class="admin-section" id="sectionProject">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Kegiatan Anak Magang</h1>
+            <p class="section-desc">Kelola kegiatan dan karya peserta magang</p>
+          </div>
+          <button class="btn-primary" onclick="openModalProject()">
+            <i class="fas fa-plus"></i> Tambah Kegiatan
+          </button>
+        </div>
+        <div class="table-card">
+          <table class="admin-table" id="tabelProject">
+            <thead>
+              <tr>
+                <th style="width:44px;">#</th>
+                <th>Judul Project</th>
+                <th style="width:120px;">Kategori</th>
+                <th>Peserta</th>
+                <th style="width:110px;">Tanggal</th>
+                <th style="width:120px;">Aksi</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyProject">
+              <tr><td colspan="6" style="text-align:center;padding:30px;color:var(--text-light);"><i class="fas fa-spinner fa-spin"></i> Memuat...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- ===== SECTION: GALERI MAGANG ===== -->
+      <section class="admin-section" id="sectionGaleri">
+        <div class="section-header">
+          <div>
+            <h1 class="section-h1">Galeri Magang</h1>
+            <p class="section-desc">Upload dan kelola foto kegiatan magang yang tampil di halaman MORI</p>
+          </div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;">
+            <button class="btn-secondary" onclick="syncGaleriFolder()" id="btnSyncFolder" title="Scan folder /magang/ dan daftarkan foto baru ke database">
+              <i class="fas fa-sync-alt"></i> Sync dari Folder
+            </button>
+            <a href="galeri.html" target="_blank" class="btn-secondary" style="text-decoration:none;">
+              <i class="fas fa-external-link-alt"></i> Buka Halaman Galeri
+            </a>
+            <button class="btn-primary" onclick="document.getElementById('galeriFileInput').click()">
+              <i class="fas fa-cloud-upload-alt"></i> Upload Foto
+            </button>
+          </div>
+        </div>
+
+        <!-- Info Auto-Sync -->
+        <div style="background:rgba(26,58,107,0.06);border:1px solid rgba(26,58,107,0.15);border-radius:12px;padding:14px 18px;margin-bottom:20px;display:flex;align-items:flex-start;gap:12px;">
+          <i class="fas fa-folder-open" style="color:#1A3A6B;font-size:18px;margin-top:2px;flex-shrink:0;"></i>
+          <div>
+            <div style="font-weight:700;font-size:13px;color:#1A3A6B;margin-bottom:3px;">Auto-Sync Folder <code style="font-size:11px;background:#e8eef8;padding:1px 6px;border-radius:4px;">/magang/</code></div>
+            <div style="font-size:12px;color:#6B7280;line-height:1.6;">
+              Foto yang Anda taruh langsung di folder <code>/magang/</code> atau <code>/uploads/magang/</code> akan <strong>otomatis terdaftar</strong> saat halaman MORI atau Galeri dibuka.
+              Klik <strong>Sync dari Folder</strong> untuk memuat file baru sekarang tanpa menunggu.
+            </div>
+            <div id="syncStatus" style="margin-top:8px;font-size:12px;font-weight:600;display:none;"></div>
+          </div>
+        </div>
+
+        <!-- Upload Area -->
+        <div class="galeri-upload-zone" id="galeriUploadZone" onclick="document.getElementById('galeriFileInput').click()" ondragover="galeriDragOver(event)" ondrop="galeriDrop(event)">
+          <input type="file" id="galeriFileInput" accept="image/*" multiple style="display:none;" onchange="uploadGaleriFiles(this.files)" />
+          <i class="fas fa-cloud-upload-alt" style="font-size:40px;color:#1A3A6B;opacity:0.4;margin-bottom:12px;"></i>
+          <p style="font-weight:600;color:#374151;margin-bottom:4px;">Klik atau drag foto ke sini</p>
+          <p style="font-size:12px;color:#9CA3AF;">JPG, PNG, WebP — Maks 15MB per file. Bisa multi-file.</p>
+          <div id="galeriUploadProgress" style="display:none;margin-top:14px;width:100%;max-width:300px;"></div>
+        </div>
+
+        <!-- Grid Preview Galeri -->
+        <div style="margin-top:28px;">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;flex-wrap:wrap;gap:10px;">
+            <div style="font-weight:700;color:#1A3A6B;font-size:15px;">
+              <i class="fas fa-images" style="margin-right:6px;"></i> Foto dalam Galeri
+              <span id="galeriCount" style="font-size:12px;color:#9CA3AF;font-weight:400;margin-left:8px;"></span>
+            </div>
+            <a href="galeri.html" target="_blank" style="font-size:12px;color:#1A3A6B;font-weight:600;text-decoration:none;display:inline-flex;align-items:center;gap:5px;">
+              <i class="fas fa-eye"></i> Lihat tampilan publik
+            </a>
+          </div>
+          <div class="admin-galeri-grid" id="adminGaleriGrid">
+            <div style="text-align:center;padding:40px;color:#9CA3AF;grid-column:1/-1;">
+              <i class="fas fa-spinner fa-spin" style="font-size:24px;"></i>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+    </main>
+  </div>
+
+  <!-- ===== MODAL TAMBAH/EDIT BERITA ===== -->
+  <div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+    <div class="modal-card" id="modalCard">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalTitle">Tambah Berita</h3>
+        <button class="btn-modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editId" />
+
+        <div class="form-group">
+          <label class="form-label" for="inputJudul">Judul Berita <span class="req">*</span></label>
+          <input type="text" id="inputJudul" class="form-input" placeholder="Masukkan judul berita..." />
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="inputKategori">Kategori</label>
+            <select class="form-input" id="inputKategori">
+              <option value="Berita">Berita</option>
+              <option value="Kegiatan">Kegiatan</option>
+              <option value="Pengumuman">Pengumuman</option>
+              <option value="Siaran Pers">Siaran Pers</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="inputTanggal">Tanggal <span class="req">*</span></label>
+            <input type="date" id="inputTanggal" class="form-input" />
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputStatus">Status</label>
+          <select class="form-input" id="inputStatus">
+            <option value="published">Dipublikasikan</option>
+            <option value="draft">Draft</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="inputKonten">Konten / Deskripsi</label>
+          <textarea id="inputKonten" class="form-textarea" rows="4"
+            placeholder="Tuliskan isi atau ringkasan berita..."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label">Gambar Berita</label>
+          <div class="upload-area" id="uploadArea" onclick="document.getElementById('inputGambar').click()">
+            <input type="file" id="inputGambar" accept="image/*" style="display:none;" onchange="previewImage(event)" />
+            <div class="upload-placeholder" id="uploadPlaceholder">
+              <i class="fas fa-cloud-upload-alt"></i>
+              <span>Klik untuk upload gambar</span>
+              <small>JPG, PNG, WebP (maks 5MB)</small>
+            </div>
+            <img class="upload-preview" id="uploadPreview" src="" alt="Preview" style="display:none;" />
+          </div>
+          <p class="upload-hint">Jika tidak diupload, gambar default akan digunakan.</p>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModal()">Batal</button>
+        <button class="btn-primary" onclick="simpanBerita()">
+          <i class="fas fa-save"></i> Simpan Berita
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL KONFIRMASI HAPUS ===== -->
+  <div class="modal-overlay" id="modalHapusOverlay" onclick="closeHapusOutside(event)">
+    <div class="modal-card modal-sm" id="modalHapusCard">
+      <div class="modal-header danger">
+        <h3 class="modal-title">Hapus Berita</h3>
+        <button class="btn-modal-close" onclick="closeModalHapus()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="hapus-icon"><i class="fas fa-trash-alt"></i></div>
+        <p class="hapus-text">Apakah Anda yakin ingin menghapus berita ini?</p>
+        <p class="hapus-name" id="hapusName"></p>
+        <p class="hapus-warn">Tindakan ini tidak dapat dibatalkan.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModalHapus()">Batal</button>
+        <button class="btn-danger" onclick="konfirmasiHapus()">
+          <i class="fas fa-trash-alt"></i> Ya, Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL TAMBAH/EDIT PESERTA MAGANG ===== -->
+  <div class="modal-overlay" id="modalMagangOverlay" onclick="closeMagangOutside(event)">
+    <div class="modal-card" id="modalMagangCard" style="max-width:560px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalMagangTitle">Tambah Peserta Magang</h3>
+        <button class="btn-modal-close" onclick="closeModalMagang()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editMagangId" />
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="mInputNama">Nama Lengkap <span class="req">*</span></label>
+            <input type="text" id="mInputNama" class="form-input" placeholder="Nama lengkap peserta" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mInputNim">NIM / NIP / NIS</label>
+            <input type="text" id="mInputNim" class="form-input" placeholder="Nomor Induk..." />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="mInputJurusan">Jurusan / Bagian</label>
+            <input type="text" id="mInputJurusan" class="form-input" placeholder="Contoh: Ilmu Hukum" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mInputKampus">Instansi / Kampus</label>
+            <input type="text" id="mInputKampus" class="form-input" placeholder="Contoh: Kemenaker / Unhas" />
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="mInputMulai">Tanggal Mulai <span class="req">*</span></label>
+            <input type="date" id="mInputMulai" class="form-input" />
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="mInputSelesai">Tanggal Selesai</label>
+            <input type="date" id="mInputSelesai" class="form-input" />
+            <small style="color:#9CA3AF;font-size:11px;">Kosongkan jika masih aktif</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mInputKategori">Kategori Peserta</label>
+          <select class="form-input" id="mInputKategori">
+            <option value="kampus">Magang Kampus / Siswa</option>
+            <option value="kemenaker">Magang Kemenaker</option>
+            <option value="honor">Pegawai Honor</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="mInputCatatan">Catatan (opsional)</label>
+          <textarea id="mInputCatatan" class="form-textarea" rows="2" placeholder="Catatan tambahan tentang peserta..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModalMagang()">Batal</button>
+        <button class="btn-primary" id="btnSimpanMagang" onclick="simpanMagang()">
+          <i class="fas fa-save"></i> Simpan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL TAMBAH/EDIT KEGIATAN ANAK MAGANG ===== -->
+  <div class="modal-overlay" id="modalProjectOverlay" onclick="closeProjectOutside(event)">
+    <div class="modal-card" id="modalProjectCard" style="max-width:560px;">
+      <div class="modal-header">
+        <h3 class="modal-title" id="modalProjectTitle">Tambah Kegiatan</h3>
+        <button class="btn-modal-close" onclick="closeModalProject()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <input type="hidden" id="editProjectId" />
+        <div class="form-group">
+          <label class="form-label" for="pInputJudul">Judul Kegiatan <span class="req">*</span></label>
+          <input type="text" id="pInputJudul" class="form-input" placeholder="Judul kegiatan magang..." />
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label class="form-label" for="pInputKategori">Kategori</label>
+            <select class="form-input" id="pInputKategori">
+              <option value="Umum">Umum</option>
+              <option value="Riset">Riset</option>
+              <option value="Analisis Data">Analisis Data</option>
+              <option value="Komunikasi">Komunikasi</option>
+              <option value="Administrasi">Administrasi</option>
+              <option value="Dokumentasi">Dokumentasi</option>
+              <option value="Lainnya">Lainnya</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="pInputTanggal">Tanggal <span class="req">*</span></label>
+            <input type="date" id="pInputTanggal" class="form-input" />
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pInputPeserta">Nama Peserta</label>
+          <input type="text" id="pInputPeserta" class="form-input" placeholder="Pisahkan dengan koma jika lebih dari satu" />
+        </div>
+        <div class="form-group">
+          <label class="form-label" for="pInputDeskripsi">Deskripsi Kegiatan</label>
+          <textarea id="pInputDeskripsi" class="form-textarea" rows="3" placeholder="Jelaskan kegiatan ini secara singkat..."></textarea>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Lampiran Media <span class="req">*</span> <span style="font-weight:400;color:#9CA3AF;">(wajib foto/video)</span></label>
+          <div style="border:2px dashed #e2e8f0;border-radius:10px;padding:16px;text-align:center;cursor:pointer;transition:border-color 0.2s;" id="pFileDropZone" onclick="document.getElementById('pInputFile').click()" ondragover="event.preventDefault();this.style.borderColor='#1A3A6B'" ondragleave="this.style.borderColor='#e2e8f0'" ondrop="handleProjectFileDrop(event)">
+            <input type="file" id="pInputFile" style="display:none;" accept=".jpg,.jpeg,.png,.mp4,.heic,.mov" onchange="showProjectFileName(this)" />
+            <i class="fas fa-image" style="font-size:24px;color:#9CA3AF;margin-bottom:8px;display:block;"></i>
+            <div id="pFileLabel" style="font-size:13px;color:#6B7280;">Klik atau drag file ke sini</div>
+            <div style="font-size:11px;color:#9CA3AF;margin-top:4px;">JPG, PNG, MP4, HEIC, MOV — Maks 20MB</div>
+          </div>
+          <div id="pCurrentFile" style="display:none;margin-top:8px;font-size:12px;color:#1A3A6B;"></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModalProject()">Batal</button>
+        <button class="btn-primary" id="btnSimpanProject" onclick="simpanProject()">
+          <i class="fas fa-save"></i> Simpan Kegiatan
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL KONFIRMASI HAPUS MORI ===== -->
+  <div class="modal-overlay" id="modalHapusMoriOverlay" onclick="if(event.target===this)closeModalHapusMori()">
+    <div class="modal-card modal-sm">
+      <div class="modal-header danger">
+        <h3 class="modal-title">Konfirmasi Hapus</h3>
+        <button class="btn-modal-close" onclick="closeModalHapusMori()"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="modal-body">
+        <div class="hapus-icon"><i class="fas fa-trash-alt"></i></div>
+        <p class="hapus-text" id="hapusMoriText">Apakah Anda yakin ingin menghapus data ini?</p>
+        <p class="hapus-warn">Tindakan ini tidak dapat dibatalkan.</p>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="closeModalHapusMori()">Batal</button>
+        <button class="btn-danger" id="btnKonfirmasiHapusMori" onclick="konfirmasiHapusMori()">
+          <i class="fas fa-trash-alt"></i> Ya, Hapus
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div class="toast" id="toast"></div>
+
+  <script src="admin.js"></script>
+</body>
+
+</html>

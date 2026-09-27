@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description"
+    content="Ombudsman Republik Indonesia Perwakilan Sulawesi Selatan - Mengembangkan Pelayanan Publik di Sulawesi Selatan" />
+  <title>Ombudsman Perwakilan Sulawesi Selatan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css?v=10" />
+  <link rel="icon" type="image/png" href="images/logotab.png" />
+  <style>
+    /* Layanan heading responsive */
+    .layanan-heading {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--blue-navy);
+      margin-bottom: 12px;
+      letter-spacing: -0.5px;
+    }
+
+    .layanan-sub {
+      color: var(--text-mid);
+      font-size: 16px;
+      max-width: 600px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+
+      /* Hero inline-style overrides: Exactly like desktop but smaller */
+      .hero-section {
+        min-height: auto !important;
+      }
+
+      .hero-inner {
+        flex-direction: row !important;
+        padding: 10px 15px 0 !important;
+        align-items: stretch !important;
+      }
+
+      .hero-content {
+        flex-direction: row !important;
+        align-items: center !important;
+        text-align: left !important;
+        gap: 12px !important;
+        padding: 15px 0 20px !important;
+        flex: 1 !important;
+        max-width: none !important;
+      }
+
+      .hero-content>img {
+        display: block !important;
+        height: 60px !important;
+        margin: 0 !important;
+      }
+
+      .hero-title {
+        font-size: 11px !important;
+        line-height: 1.3 !important;
+        margin-bottom: 2px !important;
+      }
+
+      .hero-sub {
+        font-size: 8px !important;
+        margin-bottom: 8px !important;
+      }
+
+      .hero-btn {
+        padding: 5px 10px !important;
+        font-size: 7px !important;
+        border-width: 1px !important;
+      }
+
+      .hero-image-wrap {
+        display: block !important;
+        width: 140px !important; /* PERBESAR */
+        margin: 0 0 0 5px !important;
+        align-self: flex-end !important; /* MELENGKET KEBAWAH */
+        position: static !important;
+      }
+
+      /* Layanan heading */
+      .layanan-heading {
+        font-size: 22px !important;
+      }
+
+      .layanan-sub {
+        font-size: 14px !important;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .hero-content {
+        gap: 8px !important;
+        padding: 10px 0 15px !important;
+      }
+
+      .hero-content>img {
+        height: 45px !important;
+      }
+
+      .hero-title {
+        font-size: 9px !important;
+      }
+
+      .hero-sub {
+        font-size: 7px !important;
+      }
+
+      .hero-btn {
+        padding: 4px 8px !important;
+        font-size: 6px !important;
+      }
+
+      .hero-image-wrap {
+        width: 120px !important; /* PERBESAR */
+        margin-left: 5px !important;
+        align-self: flex-end !important; /* MELENGKET KEBAWAH */
+      }
+
+      .layanan-heading {
+        font-size: 18px !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <!-- Logo -->
+      <div class="navbar-logo">
+        <a href="index.html" style="display:flex; align-items:center;">
+          <img src="images/logofix.png" alt="Ombudsman Republik Indonesia" class="logo-nav"
+            style="height:45px; width:auto; max-width:250px;">
+        </a>
+      </div>
+
+
+      <!-- Nav Links -->
+      <nav class="navbar-nav">
+        <a href="index.html" class="nav-link active">PORTAL</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-toggle">TENTANG KAMI <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-dropdown-menu">
+            <a href="sekilas.html">Sekilas Ombudsman</a>
+            <a href="pimpinan.html">Profil Pimpinan</a>
+            <a href="visi-misi.html">Visi dan Misi</a>
+            <a href="tugas-fungsi.html">Tugas &amp; Fungsi</a>
+            <a href="maklumat.html">Maklumat Pelayanan</a>
+            <a href="struktur.html">Struktur Organisasi</a>
+            <a href="spip.html">SPIP</a>
+            <a href="elhkpn.html">e-LHKPN</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-toggle">PUBLIKASI <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-dropdown-menu">
+            <a href="laporan-tahunan.html">Laporan Tahunan</a>
+            <a href="podcast.html">Podcast & Ruang Bincang</a>
+          </div>
+        </div>
+        <a href="berita.html" class="nav-link">BERITA</a>
+        <a href="regulasi.html" class="nav-link">REGULASI</a>
+        <a href="mori.html" class="nav-link">Ombudsman Akademi</a>
+      </nav>
+
+      <!-- CTA Button -->
+      <div class="navbar-cta">
+        <a href="https://simpel4.ombudsman.go.id/lapor-ombudsman" target="_blank" rel="noopener"
+          class="btn-lapor">LAPOR!</a>
+      </div>
+
+      <!-- Mobile Hamburger -->
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO SECTION -->
+  <section class="hero-section">
+    <div class="hero-inner" style="align-items: stretch;">
+      <!-- Kiri: Logo + Teks -->
+      <div class="hero-content"
+        style="display:flex; flex-direction:row; align-items:center; gap:32px; flex:1; max-width:none; padding: 30px 0;">
+        <!-- Logo -->
+        <img src="images/perwakilan.png" alt="Ombudsman RI Sulsel"
+          style="height: 170px; width: auto; flex-shrink:0; display:block;">
+        <!-- Teks -->
+        <div style="flex:1;">
+          <h1 class="hero-title" style="font-size:22px; margin-bottom:6px;">MENGAWASI PELAYANAN<br>PUBLIK DI SULAWESI
+            SELATAN</h1>
+          <p class="hero-sub" style="margin-bottom:18px;">Untuk Sulsel yang lebih baik dan bermartabat</p>
+          <a href="#" class="hero-btn" onclick="openWelcomeModal(event)">PELAJARI LEBIH</a>
+        </div>
+      </div>
+      <!-- Kanan: Foto Pak Ismu rapat ke bawah -->
+      <div class="hero-image-wrap" style="align-self:flex-end; flex-shrink:0; width:300px;">
+        <img src="images/ismu.png" alt="Pejabat Ombudsman Sulsel" class="hero-img" style="display:block;" />
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD SECTION -->
+  <section class="dashboard-section">
+    <div class="container">
+      <h2 class="section-title-dark">DASHBOARD KINERJA PERWAKILAN SULSEL (TAHUN 2025)</h2>
+
+      <!-- Stats Cards Row -->
+      <div class="stats-row">
+        <div class="stat-card-dash">
+          <div class="stat-card-icon orange"></div>
+          <div class="stat-card-label">Aduan Laporan Masyarakat</div>
+          <div class="stat-card-value"></div>
+        </div>
+        <div class="stat-card-dash">
+          <div class="stat-card-icon blue"></div>
+          <div class="stat-card-label">Capaian Kinerja</div>
+          <div class="stat-card-value"></div>
+        </div>
+        <div class="stat-card-dash">
+          <div class="stat-card-icon green"></div>
+          <div class="stat-card-label">Substansi Laporan</div>
+          <div class="stat-card-value"></div>
+        </div>
+      </div>
+
+      <!-- Realisasi Target -->
+      <div class="target-section">
+        <div class="target-label">Realisasi Target 2025</div>
+        <div class="progress-container">
+          <div class="progress-bar">
+            <div class="progress-fill" style="width: 54.33%">
+              <span class="progress-text">54,33 %</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BERITA & KEGIATAN TERKINI -->
+  <section class="news-section">
+    <div class="container">
+      <h2 class="section-title-dark">BERITA &amp; KEGIATAN TERKINI</h2>
+      <div class="news-grid" id="newsGrid">
+        <!-- Berita dimuat secara dinamis oleh app.js dari localStorage (dikelola admin) -->
+        <!-- Default / fallback berita akan ditampilkan jika belum ada data dari admin -->
+      </div>
+    </div>
+  </section>
+
+  <!-- PODCAST & RUANG BINCANG -->
+  <section class="podcast-section">
+    <div class="container">
+      <div class="podcast-section-header">
+        <h2 class="section-title-dark" style="margin-bottom:0;">PODCAST &amp; RUANG BINCANG</h2>
+        <a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank" rel="noopener" class="yt-channel-btn">
+          <i class="fab fa-youtube"></i> Kunjungi Channel YouTube
+        </a>
+      </div>
+      <!-- Podcast cards dimuat dinamis dari YouTube RSS feed -->
+      <div class="podcast-grid" id="podcastGrid">
+        <div class="podcast-loading">
+          <i class="fas fa-spinner fa-spin"></i> Memuat video terbaru...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LAYANAN NASIONAL -->
+  <section class="layanan-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 50px;">
+        <h2 class="layanan-heading">Layanan Terintegrasi Nasional</h2>
+        <p class="layanan-sub">Akses
+          cepat layanan publik dari Ombudsman Republik Indonesia Pusat untuk memudahkan kebutuhan administrasi dan
+          pelaporan Anda.</p>
+      </div>
+      <div class="layanan-grid">
+        <a href="https://simpel4.ombudsman.go.id/lapor-ombudsman" class="layanan-card" target="_blank" rel="noopener">
+          <div class="layanan-icon"><i class="fas fa-file-signature"></i></div>
+          <h3 class="layanan-title">Pengaduan Umum</h3>
+          <p class="layanan-desc">Layanan Aspirasi dan Pengaduan Online Rakyat (SIMPEL 4.0)</p>
+        </a>
+        <a href="https://ombudsman.go.id/profiles/index/pfelhkpn" class="layanan-card" target="_blank" rel="noopener">
+          <div class="layanan-icon" style="color: #3b82f6; background: rgba(59, 130, 246, 0.1);"><i
+              class="fas fa-search-dollar"></i></div>
+          <h3 class="layanan-title">e-LHKPN</h3>
+          <p class="layanan-desc">Laporan Harta Kekayaan Penyelenggara Negara</p>
+        </a>
+        <a href="https://ombudsman.go.id/pengadaan/index/lpse" class="layanan-card" target="_blank" rel="noopener">
+          <div class="layanan-icon" style="color: #10b981; background: rgba(16, 185, 129, 0.1);"><i
+              class="fas fa-shopping-cart"></i></div>
+          <h3 class="layanan-title">LPSE / Pengadaan</h3>
+          <p class="layanan-desc">Layanan Pengadaan Secara Elektronik Ombudsman RI</p>
+        </a>
+        <a href="https://ombudsman.go.id/pengumuman" class="layanan-card" target="_blank" rel="noopener">
+          <div class="layanan-icon" style="color: #8b5cf6; background: rgba(139, 92, 246, 0.1);"><i
+              class="fas fa-bullhorn"></i></div>
+          <h3 class="layanan-title">Pengumuman Pusat</h3>
+          <p class="layanan-desc">Informasi dan Pengumuman Resmi dari Pusat</p>
+        </a>
+      </div>
+    </div>
+  </section>
+  <!-- FAQ & PUSTAKA REGULASI -->
+  <section class="faq-regulasi-section">
+    <div class="container">
+      <div class="faq-regulasi-grid">
+        <!-- FAQ -->
+        <div class="faq-box">
+          <h2 class="section-title-dark">FAQ</h2>
+          <div class="faq-content-area">
+            <!-- FAQ items would go here -->
+            <div class="faq-item">
+              <div class="faq-q">Apa itu Ombudsman RI?</div>
+              <div class="faq-a">Ombudsman RI adalah lembaga negara yang bertugas mengawasi penyelenggaraan pelayanan
+                publik oleh pemerintah.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Bagaimana cara melaporkan pengaduan?</div>
+              <div class="faq-a">Laporan dapat disampaikan melalui portal online, telepon, email, atau datang langsung
+                ke kantor perwakilan.</div>
+            </div>
+            <div class="faq-item">
+              <div class="faq-q">Berapa lama proses penanganan laporan?</div>
+              <div class="faq-a">Proses penanganan laporan masyarakat maksimal 30 hari kerja sejak laporan dinyatakan
+                lengkap.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pustaka Regulasi -->
+        <div class="regulasi-box">
+          <h2 class="section-title-dark">PUSTAKA REGULASI</h2>
+          <div class="regulasi-content-area">
+            <div class="regulasi-item">
+              <div class="reg-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="reg-info">
+                <div class="reg-title">UU No. 37 Tahun 2008 tentang Ombudsman RI</div>
+                <div class="reg-sub">Undang-Undang</div>
+              </div>
+            </div>
+            <div class="regulasi-item">
+              <div class="reg-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="reg-info">
+                <div class="reg-title">UU No. 25 Tahun 2009 tentang Pelayanan Publik</div>
+                <div class="reg-sub">Undang-Undang</div>
+              </div>
+            </div>
+            <div class="regulasi-item">
+              <div class="reg-icon"><i class="fas fa-file-pdf"></i></div>
+              <div class="reg-info">
+                <div class="reg-title">Peraturan Ombudsman No. 26 Tahun 2017</div>
+                <div class="reg-sub">Peraturan</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <!-- Alamat Kantor -->
+        <div class="footer-col footer-alamat">
+          <h4 class="footer-heading">Alamat Kantor</h4>
+          <div class="footer-map-wrap">
+            <a href="https://maps.app.goo.gl/vLokBJSkznrzQx2m9" target="_blank" rel="noopener">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.551608620864!2d119.4398188!3d-5.1755716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee2b74070a7b5%3A0xc3910c224a1e9411!2sOmbudsman%20RI%20Perwakilan%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1720000000000!5m2!1sid!2sid"
+                width="100%" height="90" style="border:0; border-radius: 8px; pointer-events:none;" allowfullscreen=""
+                loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </a>
+          </div>
+          <p class="footer-address">
+            <i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i>
+            Jl. Letnan Hertasning No.8, Kassi-Kassi, Kec. Rappocini,<br>
+            Kota Makassar, Sulawesi Selatan 90221
+          </p>
+        </div>
+
+        <!-- Kontak -->
+        <div class="footer-col footer-kontak">
+          <h4 class="footer-heading">Kontak</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <i class="fas fa-phone"></i>
+              <a href="tel:+6208112363737">0811-2363-737</a>
+            </li>
+            <li>
+              <i class="fas fa-envelope"></i>
+              <a href="mailto:perwakilan.sulsel@ombudsman.go.id">perwakilan.sulsel@ombudsman.go.id</a>
+            </li>
+            <li>
+              <i class="fab fa-instagram"></i>
+              <a href="https://www.instagram.com/ombudsman137sulsel?igsh=MTcyMmhwem84NmhyZA==" target="_blank"
+                rel="noopener">@ombudsman137sulsel</a>
+            </li>
+            <li>
+              <i class="fab fa-youtube"></i>
+              <a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank" rel="noopener">Ombudsman RI
+                Sulsel</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>&copy; 2025 Ombudsman RI Perwakilan Sulawesi Selatan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+
+  <!-- Welcome Modal -->
+  <div class="welcome-modal-overlay" id="welcomeModal">
+    <div class="welcome-modal-box">
+      <button class="welcome-modal-close" onclick="closeWelcomeModal()"><i class="fas fa-times"></i></button>
+
+      <div class="welcome-modal-header">
+        <img src="images/ismu.jpeg" alt="Ismu Iskandar" class="welcome-modal-avatar">
+        <h3 class="welcome-modal-title">Selamat Datang di Portal ORI Sulsel</h3>
+        <p class="welcome-modal-subtitle">Bersama Mewujudkan Pelayanan Publik yang Berkeadilan</p>
+      </div>
+
+      <div class="welcome-modal-body">
+        <p>
+          "Kehadiran Ombudsman bukan sekadar untuk mencari kesalahan, melainkan sebagai katalisator untuk
+          <strong>mendorong perbaikan dan inovasi</strong> dalam penyelenggaraan pelayanan publik. Mari bersama kita
+          wujudkan tata kelola pemerintahan yang baik, bersih, dan melayani."
+        </p>
+        <p style="margin-top: 10px; font-weight: 600; font-style: italic; color: var(--blue-navy);">
+          - Ismu Iskandar (Kepala Perwakilan)
+        </p>
+      </div>
+
+      <div class="welcome-modal-actions">
+        <a href="sekilas.html" class="welcome-action-btn primary">
+          <i class="fas fa-info-circle"></i> Kenali Kami
+        </a>
+        <a href="visi-misi.html" class="welcome-action-btn">
+          <i class="fas fa-bullseye"></i> Visi & Misi
+        </a>
+        <a href="struktur.html" class="welcome-action-btn">
+          <i class="fas fa-sitemap"></i> Struktur Organisasi
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function openWelcomeModal(e) {
+      if (e) e.preventDefault();
+      const modal = document.getElementById('welcomeModal');
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeWelcomeModal() {
+      const modal = document.getElementById('welcomeModal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    // Close on click outside
+    document.getElementById('welcomeModal').addEventListener('click', function (e) {
+      if (e.target === this) {
+        closeWelcomeModal();
+      }
+    });
+  </script>
+</body>
+
+</html>

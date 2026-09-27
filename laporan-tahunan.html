@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Laporan Tahunan Ombudsman RI Perwakilan Sulawesi Selatan" />
+  <title>Laporan Tahunan — Ombudsman RI Sulsel</title>
+  <link rel="icon" type="image/png" href="images/logotab.png" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css?v=2" />
+  <style>
+    .laporan-hero {
+      background: linear-gradient(135deg, #1A3A6B 0%, #0d2447 60%, #E8401C 100%);
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .laporan-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: url('images/hero-bg.png') center/cover no-repeat;
+      opacity: 0.05;
+    }
+    .laporan-hero img.hero-logo {
+      height: 250px; width: auto;
+      display: block; margin: -50px auto 20px;
+      position: relative; z-index: 2;
+    }
+    .laporan-hero h1 {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 12px;
+      position: relative; z-index: 2;
+    }
+    .laporan-hero p {
+      color: rgba(255,255,255,0.8);
+      font-size: 15px;
+      position: relative; z-index: 2;
+    }
+
+    .laporan-section {
+      padding: 60px 0;
+      background: #f8fafc;
+    }
+
+    .laporan-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .laporan-card {
+      background: #fff;
+      border-radius: 18px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+      border: 1px solid #e2e8f0;
+      transition: transform 0.25s, box-shadow 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+    .laporan-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.1);
+    }
+    .laporan-cover {
+      height: 200px;
+      background: linear-gradient(135deg, #1A3A6B, #254b8a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .laporan-cover img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+    }
+    .laporan-cover-placeholder {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      color: rgba(255,255,255,0.7);
+    }
+    .laporan-cover-placeholder i { font-size: 48px; }
+    .laporan-cover-placeholder span { font-size: 13px; font-weight: 600; }
+    .laporan-tahun-badge {
+      position: absolute;
+      top: 12px; left: 12px;
+      background: #E8401C;
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 4px 10px;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+    .laporan-card-body {
+      padding: 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .laporan-card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #1A3A6B;
+      margin-bottom: 8px;
+      line-height: 1.4;
+    }
+    .laporan-card-desc {
+      font-size: 13px;
+      color: #64748b;
+      line-height: 1.6;
+      flex: 1;
+      margin-bottom: 16px;
+    }
+    .laporan-download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #1A3A6B;
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+    .laporan-download-btn:hover { background: #0d2447; color: #fff; }
+    .laporan-download-btn.disabled {
+      background: #e2e8f0;
+      color: #94a3b8;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .podcast-embed-section {
+      padding: 60px 0;
+      background: #fff;
+    }
+    .podcast-embed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .podcast-embed-header h2 {
+      font-size: 28px;
+      font-weight: 800;
+      color: #1A3A6B;
+    }
+
+    .loading-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #94a3b8;
+      font-size: 14px;
+    }
+    .loading-state i { font-size: 32px; display: block; margin-bottom: 12px; color: #E8401C; }
+
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: #94a3b8;
+    }
+    .empty-state i { font-size: 48px; display: block; margin-bottom: 16px; color: #cbd5e1; }
+    .empty-state p { font-size: 15px; }
+
+    @media (max-width: 768px) {
+      .laporan-hero { padding: 70px 0 40px; }
+      .laporan-hero img.hero-logo { height: 150px !important; margin: -30px auto 16px !important; }
+      .laporan-hero h1 { font-size: 22px; }
+      .laporan-section { padding: 32px 0; }
+      .laporan-grid { grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 24px; }
+      .podcast-embed-header { flex-direction: column; align-items: flex-start; }
+      .podcast-embed-header h2 { font-size: 20px; }
+    }
+    @media (max-width: 480px) {
+      .laporan-hero img.hero-logo { height: 100px !important; }
+      .laporan-hero h1 { font-size: 18px; }
+      .laporan-grid { grid-template-columns: 1fr; gap: 14px; }
+      .laporan-cover { height: 160px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <header class="navbar" id="navbar">
+    <div class="navbar-container">
+      <div class="navbar-logo">
+        <a href="index.html" style="display:flex; align-items:center;">
+          <img src="images/logofix.png" alt="Ombudsman Republik Indonesia" class="logo-nav" style="height:45px; width:auto; max-width:250px;">
+        </a>
+      </div>
+      <nav class="navbar-nav">
+        <a href="index.html" class="nav-link">PORTAL</a>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-toggle">TENTANG KAMI <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-dropdown-menu">
+            <a href="sekilas.html">Sekilas Ombudsman</a>
+            <a href="pimpinan.html">Profil Pimpinan</a>
+            <a href="visi-misi.html">Visi dan Misi</a>
+            <a href="tugas-fungsi.html">Tugas & Fungsi</a>
+            <a href="maklumat.html">Maklumat Pelayanan</a>
+            <a href="struktur.html">Struktur Organisasi</a>
+            <a href="spip.html">SPIP</a>
+            <a href="elhkpn.html">e-LHKPN</a>
+          </div>
+        </div>
+        <div class="nav-dropdown">
+          <a href="#" class="nav-link dropdown-toggle active">PUBLIKASI <i class="fas fa-chevron-down"></i></a>
+          <div class="nav-dropdown-menu">
+            <a href="laporan-tahunan.html" class="active">Laporan Tahunan</a>
+            <a href="podcast.html">Podcast & Ruang Bincang</a>
+          </div>
+        </div>
+        <a href="berita.html" class="nav-link">BERITA</a>
+        <a href="regulasi.html" class="nav-link">REGULASI</a>
+        <a href="mori.html" class="nav-link">Ombudsman Akademi</a>
+      </nav>
+      <div class="navbar-cta">
+        <a href="https://simpel4.ombudsman.go.id/lapor-ombudsman" target="_blank" rel="noopener" class="btn-lapor">LAPOR!</a>
+      </div>
+      <button class="hamburger" id="hamburger" onclick="toggleMobileMenu()">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="laporan-hero">
+    <img src="images/logovertikal.png" alt="Ombudsman RI" class="hero-logo">
+    <h1>LAPORAN TAHUNAN</h1>
+    <p>Dokumen laporan kinerja dan capaian Ombudsman RI Perwakilan Sulawesi Selatan</p>
+  </div>
+
+  <!-- LAPORAN TAHUNAN GRID -->
+  <section class="laporan-section">
+    <div class="container">
+      <div id="laporanGrid" class="laporan-grid">
+        <div class="loading-state" style="grid-column:1/-1">
+          <i class="fas fa-spinner fa-spin"></i>
+          Memuat laporan tahunan...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PODCAST & SIARAN -->
+  <section class="podcast-embed-section">
+    <div class="container">
+      <div class="podcast-embed-header">
+        <h2><i class="fab fa-youtube" style="color:#FF0000; margin-right:10px;"></i> Podcast & Siaran</h2>
+        <a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank" rel="noopener" class="yt-channel-btn">
+          <i class="fab fa-youtube"></i> Kunjungi Channel YouTube
+        </a>
+      </div>
+      <div class="podcast-grid" id="podcastGridPublikasi">
+        <div class="podcast-loading" style="grid-column:1/-1">
+          <i class="fas fa-spinner fa-spin"></i> Memuat video terbaru...
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-col footer-alamat">
+          <h4 class="footer-heading">Alamat Kantor</h4>
+          <div class="footer-map-wrap">
+            <a href="https://maps.app.goo.gl/vLokBJSkznrzQx2m9" target="_blank" rel="noopener">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3973.551608620864!2d119.4398188!3d-5.1755716!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2dbee2b74070a7b5%3A0xc3910c224a1e9411!2sOmbudsman%20RI%20Perwakilan%20Sulawesi%20Selatan!5e0!3m2!1sid!2sid!4v1720000000000!5m2!1sid!2sid"
+                width="100%" height="90" style="border:0; border-radius: 8px; pointer-events:none;" allowfullscreen="" loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+              </iframe>
+            </a>
+          </div>
+          <p class="footer-address">
+            <i class="fas fa-map-marker-alt" style="margin-right: 5px;"></i>
+            Jl. Letnan Hertasning No.8, Kassi-Kassi, Kec. Rappocini,<br>
+            Kota Makassar, Sulawesi Selatan 90221
+          </p>
+        </div>
+        <div class="footer-col footer-kontak">
+          <h4 class="footer-heading">Kontak</h4>
+          <ul class="footer-contact-list">
+            <li><i class="fas fa-phone"></i><a href="tel:+6208112363737">0811-2363-737</a></li>
+            <li><i class="fas fa-envelope"></i><a href="mailto:perwakilan.sulsel@ombudsman.go.id">perwakilan.sulsel@ombudsman.go.id</a></li>
+            <li><i class="fab fa-instagram"></i><a href="https://www.instagram.com/ombudsman137sulsel" target="_blank" rel="noopener">@ombudsman137sulsel</a></li>
+            <li><i class="fab fa-youtube"></i><a href="https://www.youtube.com/@ombudsmanrisulsel" target="_blank" rel="noopener">Ombudsman RI Sulsel</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 Ombudsman RI Perwakilan Sulawesi Selatan. Hak Cipta Dilindungi.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+  <script>
+    // Load Laporan Tahunan
+    async function loadLaporan() {
+      const grid = document.getElementById('laporanGrid');
+      try {
+        const res = await fetch('api/laporan_tahunan.php?action=list');
+        const result = await res.json();
+        if (result.success && result.data.length > 0) {
+          grid.innerHTML = result.data.map(item => `
+            <div class="laporan-card">
+              <div class="laporan-cover">
+                <div class="laporan-cover-placeholder">
+                  <i class="fas fa-file-contract" style="font-size: 56px; margin-bottom: 10px; color: rgba(255,255,255,0.9);"></i>
+                  <span style="font-size: 16px;">Laporan ${item.tahun}</span>
+                </div>
+                <span class="laporan-tahun-badge">${item.tahun}</span>
+              </div>
+              <div class="laporan-card-body">
+                <h3 class="laporan-card-title">${item.judul}</h3>
+                <p class="laporan-card-desc">${item.deskripsi}</p>
+                ${item.file_url
+                  ? `<a href="${item.file_url}" target="_blank" rel="noopener" class="laporan-download-btn">
+                      <i class="fas fa-download"></i> Unduh Laporan
+                    </a>`
+                  : `<a href="#" class="laporan-download-btn disabled">
+                      <i class="fas fa-clock"></i> Segera Hadir
+                    </a>`
+                }
+              </div>
+            </div>
+          `).join('');
+        } else {
+          grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+            <i class="fas fa-folder-open"></i>
+            <p>Belum ada laporan tahunan yang tersedia.</p>
+          </div>`;
+        }
+      } catch (e) {
+        grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1">
+          <i class="fas fa-exclamation-circle"></i>
+          <p>Gagal memuat data laporan.</p>
+        </div>`;
+      }
+    }
+
+    // Load Podcast (reuse from app.js logic)
+    async function loadPodcastPublikasi() {
+      const grid = document.getElementById('podcastGridPublikasi');
+      try {
+        const res = await fetch('api/youtube.php?limit=2');
+        const data = await res.json();
+        if (data.success && data.data && data.data.length > 0) {
+          grid.innerHTML = data.data.map(v => `
+            <a href="https://www.youtube.com/watch?v=${v.video_id}" target="_blank" rel="noopener" class="podcast-card-large">
+              <div class="podcast-thumb-wrap">
+                <img src="${v.thumbnail_url}" alt="${v.judul}" class="podcast-thumb" loading="lazy">
+                <div class="podcast-overlay">
+                  <span class="yt-badge"><i class="fab fa-youtube"></i> YouTube</span>
+                  <div class="podcast-play-btn"><i class="fas fa-play"></i></div>
+                </div>
+              </div>
+              <div class="podcast-card-body">
+                <div class="podcast-title" style="font-size:15px; font-weight:700; color:#1A3A6B; margin-bottom:8px;">${v.judul}</div>
+                <div style="font-size:11px; color:#94a3b8;"><i class="fas fa-calendar-alt"></i> ${v.published_at ? v.published_at.substring(0, 10) : ''}</div>
+              </div>
+            </a>
+          `).join('');
+        } else {
+          grid.innerHTML = `<div class="podcast-loading" style="grid-column:1/-1; text-align:center; padding:40px; color:#94a3b8;"><i class="fas fa-video-slash"></i> Belum ada video.</div>`;
+        }
+      } catch (e) {
+        grid.innerHTML = `<div class="podcast-loading" style="grid-column:1/-1; text-align:center; padding:40px; color:red;">Gagal memuat video.</div>`;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadLaporan();
+      loadPodcastPublikasi();
+    });
+  </script>
+</body>
+</html>

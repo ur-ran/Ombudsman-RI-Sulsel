@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1787040603,
+        "tahun": "2024",
+        "judul": "Laporan Tahunan",
+        "deskripsi": "Laporan Tahunan PWK Sulawesi Selatan tahun 2024",
+        "file_url": "uploads\/laporan\/laporan_1787040603_d143c184.pdf",
+        "cover_url": "",
+        "created_at": "2026-08-18"
+    },
+    {
+        "id": 1787042474,
+        "tahun": "2025",
+        "judul": "Laporan Tahunan",
+        "deskripsi": "Laporan Tahunan PWK Sulawesi Selatan tahun 2025",
+        "file_url": "uploads\/laporan\/laporan_1787042474_480bfa58.pdf",
+        "cover_url": "",
+        "created_at": "2026-08-18"
+    }
+]
